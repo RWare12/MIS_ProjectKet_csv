@@ -11,7 +11,7 @@ namespace MIS_ProjectKet
     {
         static void Main(string[] args)
         {
-            using (var sr = new StreamReader(@"C:\Users\suare\Desktop\Project\test.csv"))
+            using (var sr = new StreamReader(@"<Path of csv file>"))
             {
                 var reader = new CsvReader(sr);
 
