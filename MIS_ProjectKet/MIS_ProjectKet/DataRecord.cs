@@ -27,6 +27,12 @@ namespace MIS_ProjectKet
         public String Resolution { get; set; }
         public String Shift { get; set; }
 
+        /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~for test1.csv file`*/
+        //public String CommonName { get; set; }
+        //public String FormalName { get; set; }
+        //public String TelephoneCode { get; set; }
+        //public String CountryCodes { get; set; }
+
 
     }
 }
