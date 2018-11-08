@@ -12,3 +12,17 @@ C:\Users\suare\documents\visual studio 2015\Projects\MIS_ProjectKet\MIS_ProjectK
 C:\Users\suare\documents\visual studio 2015\Projects\MIS_ProjectKet\MIS_ProjectKet\bin\Debug\AutoMapper.pdb
 C:\Users\suare\documents\visual studio 2015\Projects\MIS_ProjectKet\MIS_ProjectKet\bin\Debug\AutoMapper.xml
 C:\Users\suare\documents\visual studio 2015\Projects\MIS_ProjectKet\MIS_ProjectKet\bin\Debug\System.ValueTuple.xml
+C:\Users\suare\Desktop\Project\Git\MIS_ProjectKet_csv\MIS_ProjectKet\MIS_ProjectKet\bin\Debug\MIS_ProjectKet.exe.config
+C:\Users\suare\Desktop\Project\Git\MIS_ProjectKet_csv\MIS_ProjectKet\MIS_ProjectKet\obj\Debug\MIS_ProjectKet.exe
+C:\Users\suare\Desktop\Project\Git\MIS_ProjectKet_csv\MIS_ProjectKet\MIS_ProjectKet\obj\Debug\MIS_ProjectKet.pdb
+C:\Users\suare\Desktop\Project\Git\MIS_ProjectKet_csv\MIS_ProjectKet\MIS_ProjectKet\bin\Debug\MIS_ProjectKet.exe
+C:\Users\suare\Desktop\Project\Git\MIS_ProjectKet_csv\MIS_ProjectKet\MIS_ProjectKet\bin\Debug\MIS_ProjectKet.pdb
+C:\Users\suare\Desktop\Project\Git\MIS_ProjectKet_csv\MIS_ProjectKet\MIS_ProjectKet\bin\Debug\AutoMapper.dll
+C:\Users\suare\Desktop\Project\Git\MIS_ProjectKet_csv\MIS_ProjectKet\MIS_ProjectKet\bin\Debug\CsvHelper.dll
+C:\Users\suare\Desktop\Project\Git\MIS_ProjectKet_csv\MIS_ProjectKet\MIS_ProjectKet\bin\Debug\FileHelpers.dll
+C:\Users\suare\Desktop\Project\Git\MIS_ProjectKet_csv\MIS_ProjectKet\MIS_ProjectKet\bin\Debug\System.ValueTuple.dll
+C:\Users\suare\Desktop\Project\Git\MIS_ProjectKet_csv\MIS_ProjectKet\MIS_ProjectKet\bin\Debug\AutoMapper.pdb
+C:\Users\suare\Desktop\Project\Git\MIS_ProjectKet_csv\MIS_ProjectKet\MIS_ProjectKet\bin\Debug\AutoMapper.xml
+C:\Users\suare\Desktop\Project\Git\MIS_ProjectKet_csv\MIS_ProjectKet\MIS_ProjectKet\bin\Debug\CsvHelper.xml
+C:\Users\suare\Desktop\Project\Git\MIS_ProjectKet_csv\MIS_ProjectKet\MIS_ProjectKet\bin\Debug\FileHelpers.xml
+C:\Users\suare\Desktop\Project\Git\MIS_ProjectKet_csv\MIS_ProjectKet\MIS_ProjectKet\bin\Debug\System.ValueTuple.xml

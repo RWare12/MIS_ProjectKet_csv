@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MIS_ProjectKet
 {
@@ -26,13 +22,6 @@ namespace MIS_ProjectKet
         public String IncidentType { get; set; }
         public String Resolution { get; set; }
         public String Shift { get; set; }
-
-        /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~for test1.csv file`*/
-        //public String CommonName { get; set; }
-        //public String FormalName { get; set; }
-        //public String TelephoneCode { get; set; }
-        //public String CountryCodes { get; set; }
-
 
     }
 }
