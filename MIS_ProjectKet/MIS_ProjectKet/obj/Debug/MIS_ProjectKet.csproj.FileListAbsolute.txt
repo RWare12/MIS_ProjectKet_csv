@@ -26,3 +26,4 @@ C:\Users\suare\Desktop\Project\Git\MIS_ProjectKet_csv\MIS_ProjectKet\MIS_Project
 C:\Users\suare\Desktop\Project\Git\MIS_ProjectKet_csv\MIS_ProjectKet\MIS_ProjectKet\bin\Debug\CsvHelper.xml
 C:\Users\suare\Desktop\Project\Git\MIS_ProjectKet_csv\MIS_ProjectKet\MIS_ProjectKet\bin\Debug\FileHelpers.xml
 C:\Users\suare\Desktop\Project\Git\MIS_ProjectKet_csv\MIS_ProjectKet\MIS_ProjectKet\bin\Debug\System.ValueTuple.xml
+C:\Users\suare\Desktop\Project\Git\MIS_ProjectKet_csv\MIS_ProjectKet\MIS_ProjectKet\obj\Debug\MIS_ProjectKet.csprojResolveAssemblyReference.cache
