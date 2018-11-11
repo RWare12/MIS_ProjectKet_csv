@@ -368,6 +368,11 @@
             </summary>
             <param name="numberStyles">The number styles.</param>
         </member>
+        <member name="T:CsvHelper.Configuration.Attributes.OptionalAttribute">
+            <summary>
+            Ignore the member when reading if no matching field name can be found.
+            </summary>
+        </member>
         <member name="T:CsvHelper.Configuration.Attributes.TypeConverterAttribute">
             <summary>
             Specifies the <see cref="P:CsvHelper.Configuration.Attributes.TypeConverterAttribute.TypeConverter"/> to use
@@ -586,6 +591,25 @@
         <member name="T:CsvHelper.Configuration.IHasIndexOptions`2">
             <summary>
             Options after an index call.
+            </summary>
+            <typeparam name="TClass">The class type.</typeparam>
+            <typeparam name="TMember">The member type.</typeparam>
+        </member>
+        <member name="T:CsvHelper.Configuration.IHasOptional`2">
+            <summary>
+            Has optional capabilities.
+            </summary>
+            <typeparam name="TClass">The class type.</typeparam>
+            <typeparam name="TMember">The member type.</typeparam>
+        </member>
+        <member name="M:CsvHelper.Configuration.IHasOptional`2.Optional">
+            <summary>
+            Ignore the member when reading if no matching field name can be found.
+            </summary>
+        </member>
+        <member name="T:CsvHelper.Configuration.IHasOptionalOptions`2">
+            <summary>
+            Options after an optional call.
             </summary>
             <typeparam name="TClass">The class type.</typeparam>
             <typeparam name="TMember">The member type.</typeparam>
@@ -816,8 +840,10 @@
         </member>
         <member name="M:CsvHelper.Configuration.ClassMap`1.References``1(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},System.Object[])">
             <summary>
+            Meant for internal use only. 
             Maps a member to another class map. When this is used, accessing a property through
-            sub-property mapping later won't work. You can only use one or the other.
+            sub-property mapping later won't work. You can only use one or the other. When using
+            this, ConvertUsing will also not work.
             </summary>
             <typeparam name="TClassMap">The type of the class map.</typeparam>
             <param name="expression">The expression.</param>
@@ -1172,6 +1198,57 @@
             <param name="message">The error message that explains the reason for the exception.</param>
             <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
         </member>
+        <member name="T:CsvHelper.Configuration.ConfigurationFunctions">
+            <summary>Holds the default callback methods for delegate members of <c>CsvHelper.Configuration.Configuration</c>.</summary>
+        </member>
+        <member name="M:CsvHelper.Configuration.ConfigurationFunctions.HeaderValidated(System.Boolean,System.String[],System.Int32,CsvHelper.ReadingContext)">
+            <summary>
+            Throws a <see cref="T:CsvHelper.ValidationException"/> if <paramref name="isValid"/> is <c>false</c>.
+            </summary>
+        </member>
+        <member name="M:CsvHelper.Configuration.ConfigurationFunctions.MissingFieldFound(System.String[],System.Int32,CsvHelper.ReadingContext)">
+            <summary>
+            Throws a <c>MissingFieldException</c>.
+            </summary>
+        </member>
+        <member name="M:CsvHelper.Configuration.ConfigurationFunctions.BadDataFound(CsvHelper.ReadingContext)">
+            <summary>
+            Throws a <see cref="T:CsvHelper.BadDataException"/>.
+            </summary>
+        </member>
+        <member name="M:CsvHelper.Configuration.ConfigurationFunctions.ReadingExceptionOccurred(CsvHelper.CsvHelperException)">
+            <summary>
+            Throws the given <paramref name="exception"/>.
+            </summary>
+        </member>
+        <member name="M:CsvHelper.Configuration.ConfigurationFunctions.ShouldSkipRecord(System.String[])">
+            <summary>
+            Returns <c>false</c>.
+            </summary>
+        </member>
+        <member name="M:CsvHelper.Configuration.ConfigurationFunctions.PrepareHeaderForMatch(System.String)">
+            <summary>
+            Returns the <paramref name="header"/> as given.
+            </summary>
+        </member>
+        <member name="M:CsvHelper.Configuration.ConfigurationFunctions.ShouldUseConstructorParameters(System.Type)">
+            <summary>
+            Returns <c>true</c> if <paramref name="type"/>:
+            1. does not have a parameterless constructor
+            2. has a constructor
+            3. is not a user defined struct
+            4. is not an interface
+            5. TypeCode is not an Object.
+            </summary>
+        </member>
+        <member name="M:CsvHelper.Configuration.ConfigurationFunctions.GetConstructor(System.Type)">
+            <summary>
+            Returns the type's constructor with the most parameters. 
+            If two constructors have the same number of parameters, then
+            there is no guarantee which one will be returned. If you have
+            that situation, you should probably implement this function yourself.
+            </summary>
+        </member>
         <member name="T:CsvHelper.Configuration.DefaultClassMap`1">
             <summary>
             A default <see cref="T:CsvHelper.Configuration.ClassMap`1"/> that can be used
@@ -1324,6 +1401,13 @@
         <member name="P:CsvHelper.Configuration.IReaderConfiguration.GetConstructor">
             <summary>
             Chooses the constructor to use for constuctor mapping.
+            </summary>
+        </member>
+        <member name="P:CsvHelper.Configuration.IReaderConfiguration.IgnoreReferences">
+            <summary>
+            Gets or sets a value indicating whether references
+            should be ignored when auto mapping. True to ignore
+            references, otherwise false. Default is false.
             </summary>
         </member>
         <member name="P:CsvHelper.Configuration.IReaderConfiguration.ShouldSkipRecord">
@@ -1544,6 +1628,13 @@
             Gets or sets a value indicating if the
             CSV file has a header record.
             Default is true.
+            </summary>
+        </member>
+        <member name="P:CsvHelper.Configuration.IWriterConfiguration.IgnoreReferences">
+            <summary>
+            Gets or sets a value indicating whether references
+            should be ignored when auto mapping. True to ignore
+            references, otherwise false. Default is false.
             </summary>
         </member>
         <member name="P:CsvHelper.Configuration.IWriterConfiguration.IncludePrivateMembers">
@@ -2123,6 +2214,11 @@
             Gets or sets the expression use to validate a field.
             </summary>
         </member>
+        <member name="P:CsvHelper.Configuration.MemberMapData.IsOptional">
+            <summary>
+            Gets or sets a value indicating if a field is optional.
+            </summary>
+        </member>
         <member name="M:CsvHelper.Configuration.MemberMapData.#ctor(System.Reflection.MemberInfo)">
             <summary>
             Initializes a new instance of the <see cref="T:CsvHelper.Configuration.MemberMapData"/> class.
@@ -2240,6 +2336,11 @@
             to a field.
             </summary>
             <param name="convertExpression">The convert expression.</param>
+        </member>
+        <member name="M:CsvHelper.Configuration.MemberMap`2.Optional">
+            <summary>
+            Ignore the member when reading if no matching field name can be found.
+            </summary>
         </member>
         <member name="M:CsvHelper.Configuration.MemberMap`2.Validate(System.Func{System.String,System.Boolean})">
             <summary>
@@ -2696,6 +2797,12 @@
             <summary>
             Appends the current reading progress.
             </summary>
+        </member>
+        <member name="M:CsvHelper.CsvFieldReader.SetBufferPosition(System.Int32)">
+            <summary>
+            Move's the buffer position according to the given offset.
+            </summary>
+            <param name="offset">The offset to move the buffer.</param>
         </member>
         <member name="M:CsvHelper.CsvFieldReader.SetFieldStart(System.Int32)">
             <summary>
@@ -3510,13 +3617,14 @@
             <exception cref="T:CsvHelper.ReaderException">Thrown if there is no header record.</exception>
             <exception cref="T:CsvHelper.MissingFieldException">Thrown if there isn't a field with name.</exception>
         </member>
-        <member name="M:CsvHelper.CsvReader.GetFieldIndex(System.String[],System.Int32,System.Boolean)">
+        <member name="M:CsvHelper.CsvReader.GetFieldIndex(System.String[],System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Gets the index of the field at name if found.
             </summary>
             <param name="names">The possible names of the field to get the index for.</param>
             <param name="index">The index of the field if there are multiple fields with the same name.</param>
             <param name="isTryGet">A value indicating if the call was initiated from a TryGet.</param>
+            <param name="isOptional">A value indicating if the call was initiated for an optional field.</param>
             <returns>The index of the field if found, otherwise -1.</returns>
             <exception cref="T:CsvHelper.ReaderException">Thrown if there is no header record.</exception>
             <exception cref="T:CsvHelper.MissingFieldException">Thrown if there isn't a field with name.</exception>
@@ -4436,6 +4544,12 @@
             <summary>
             Appends the current reading progress.
             </summary>
+        </member>
+        <member name="M:CsvHelper.IFieldReader.SetBufferPosition(System.Int32)">
+            <summary>
+            Move's the buffer position according to the given offset.
+            </summary>
+            <param name="offset">The offset to move the buffer.</param>
         </member>
         <member name="M:CsvHelper.IFieldReader.SetFieldStart(System.Int32)">
             <summary>
