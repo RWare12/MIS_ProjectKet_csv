@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace MIS_ProjectKet
@@ -14,24 +11,33 @@ namespace MIS_ProjectKet
         {
             //sets the existing excel file to be written
             Microsoft.Office.Interop.Excel.Application excel = new Microsoft.Office.Interop.Excel.Application();
-            Microsoft.Office.Interop.Excel.Workbook sheet = excel.Workbooks.Open(@"C:\Users\suare\Desktop\Project\test.xlsx");
+            Microsoft.Office.Interop.Excel.Workbook sheet = excel.Workbooks.Open(@"C:\Users\suare\Desktop\Project\FinalReportTest.xlsx");
             Microsoft.Office.Interop.Excel.Worksheet x = excel.ActiveSheet as Microsoft.Office.Interop.Excel.Worksheet;
+
+            //selects a specific worksheet to written on
+            x.Rows.WrapText = false;
             x = (Excel.Worksheet)sheet.Sheets[2];
 
-            int rowCount = 1;
-            int dataColumns = dt.Columns.Count;
-
-            foreach (DataRow dr in dt.Rows)
+            string[,] data = new string[dt.Rows.Count, dt.Columns.Count];
+            int i = 0;
+            foreach (DataRow row in dt.Rows)
             {
-                int columnCount = 0;
-                while (columnCount < dataColumns)
+                int j = 0;
+                foreach (DataColumn col in dt.Columns)
                 {
-                    x.Cells[rowCount, columnCount + 1] = dr[columnCount];
-                    columnCount++;
+                    data[i, j++] = row[col].ToString();
                 }
-                rowCount++;
-
+                i++;
             }
+
+            int topRow = 2;
+            int topColumn = 2;
+            Excel.Range c1 = (Excel.Range)x.Cells[topRow,topColumn];
+            Excel.Range c2 = (Excel.Range)x.Cells[topRow + dt.Rows.Count - 1, topColumn + dt.Columns.Count - 1];
+            Excel.Range range = x.Range[c1, c2];
+            range.Value = data;
+            range.EntireRow.WrapText = false;
+
             sheet.Close(true, Type.Missing, Type.Missing);
             excel.Quit();
         }

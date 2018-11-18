@@ -4,7 +4,6 @@ namespace MIS_ProjectKet
 {
     class DataRecord
     {
-        public int columnCount = 19;
         public String CreateDate { get; set; }
         public String IRInitialResponse { get; set; }
         public String FRFixResponse { get; set; }
