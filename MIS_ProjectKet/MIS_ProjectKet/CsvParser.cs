@@ -16,7 +16,7 @@ namespace MIS_ProjectKet
             
 
             //use of library StreamReader to get csv file
-            using ( var sr = new StreamReader(@"C:\Users\suare\Desktop\Project\report.csv"))
+            using ( var sr = new StreamReader(@"file path"))
             using (DataTable dt = new DataTable("test"))
             {
                 //variable to be able to read csv file
