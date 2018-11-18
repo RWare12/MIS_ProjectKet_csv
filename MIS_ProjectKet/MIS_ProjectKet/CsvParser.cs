@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.Data;
 
 namespace MIS_ProjectKet
 {
@@ -12,17 +13,15 @@ namespace MIS_ProjectKet
     {
         public CsvParser()
         {
-            //sets the existing excel file to be written
-            Microsoft.Office.Interop.Excel.Application excel = new Microsoft.Office.Interop.Excel.Application();
-            Microsoft.Office.Interop.Excel.Workbook sheet = excel.Workbooks.Open(@"C:\Users\suare\Desktop\Project\test.xlsx");
-            Microsoft.Office.Interop.Excel.Worksheet x = excel.ActiveSheet as Microsoft.Office.Interop.Excel.Worksheet;
-             
+            
+
             //use of library StreamReader to get csv file
-            using (var sr = new StreamReader(@"C:\Users\suare\Desktop\Project\test.csv"))
+            using ( var sr = new StreamReader(@"C:\Users\suare\Desktop\Project\test.csv"))
+            using (DataTable dt = new DataTable("test"))
             {
                 //variable to be able to read csv file
                 var reader = new CsvReader(sr);
-
+                
                 //csv configurations
                 reader.Configuration.PrepareHeaderForMatch = header => Regex.Replace(header, @"\s", string.Empty);
                 reader.Configuration.RegisterClassMap<DataRecordMap>();
@@ -31,71 +30,62 @@ namespace MIS_ProjectKet
                 //CSVReader will now read the whole file into an enumerable
                 IEnumerable<DataRecord> records = reader.GetRecords<DataRecord>();
 
-                //CSV file will be printed to the Output Window
-                int row = 1;
 
                 
+                dt.Columns.Add("Create Date", typeof(string));
+                dt.Columns.Add("IR Initial Response", typeof(string));
+                dt.Columns.Add("FR Fix Response", typeof(string));
+                dt.Columns.Add("Summary", typeof(string));
+                dt.Columns.Add("Ticket #", typeof(string));
+                dt.Columns.Add("Company", typeof(string));
+                dt.Columns.Add("Assigned to", typeof(string));
+                dt.Columns.Add("Caller", typeof(string));
+                dt.Columns.Add("Case Type", typeof(string));
+                dt.Columns.Add("Close Date", typeof(string));
+                dt.Columns.Add("Days Open", typeof(string));
+                dt.Columns.Add("Department", typeof(string));
+                dt.Columns.Add("Infrastructure Type", typeof(string));
+                dt.Columns.Add("Location", typeof(string));
+                dt.Columns.Add("Priority", typeof(string));
+                dt.Columns.Add("IncidentType", typeof(string));
+                dt.Columns.Add("Resolution", typeof(string));
+                dt.Columns.Add("Status", typeof(string));
+                dt.Columns.Add("Shift", typeof(string));
+
                 foreach (DataRecord record in records)
                 {
-                    int col = 1;
-
-                    while (col <= record.columnCount)
-                    {
-                        if (col == 1)
-                            x.Cells[row, col] = record.CreateDate.Replace(" ", "");
-                        else if (col == 2)
-                            x.Cells[row, col] = record.IRInitialResponse.Replace("at", "@");
-                        else if (col == 3)
-                            x.Cells[row, col] = record.FRFixResponse.Replace("at", "@");
-                        else if (col == 4)
-                            x.Cells[row, col] = record.Summary;
-                        else if (col == 5)
-                            x.Cells[row, col] = record.TicketNo;
-                        else if (col == 6)
-                            x.Cells[row, col] = record.Company;
-                        else if (col == 7)
-                            x.Cells[row, col] = record.Assignedto;
-                        else if (col == 8)
-                            x.Cells[row, col] = record.Caller;
-                        else if (col == 9)
-                            x.Cells[row, col] = record.CaseType;
-                        else if (col == 10)
-                            x.Cells[row, col] = record.CloseDate;
-                        else if (col == 11)
-                            x.Cells[row, col] = record.DaysOpen;
-                        else if (col == 12)
-                            x.Cells[row, col] = record.Department;
-                        else if (col == 13)
-                            x.Cells[row, col] = record.InfrastructureType;
-                        else if (col == 14)
-                            x.Cells[row, col] = record.Location;
-                        else if (col == 15)
-                            x.Cells[row, col] = record.Priority;
-                        else if (col == 16)
-                            x.Cells[row, col] = record.IncidentType;
-                        else if (col == 17)
-                            x.Cells[row, col] = record.Resolution;
-                        else if (col == 18)
-                            x.Cells[row, col] = record.Status;
-                        else if (col == 19)
-                            x.Cells[row, col] = record.Shift;
-
-                        col++;
-                    }
-                    Console.WriteLine("row: " + row++);
-                    Console.WriteLine("Create Date: {0}, IRInitialResponse: {1}, FRFixResponse: {2}, Summary: {3}, TicketNo: {4}, " +
-                        "Company: {5}, Assignedto: {6}, Caller: {7}, CaseType: {8}, CloseDate: {9}, DaysOpen: {10}, Department: {11}, InfrastructureType: {12}" +
-                        ", Location: {13}, Priority: {14}, IncidentType: {15}, Resolution: {16}, Status: {17}, Shift: {18}", record.CreateDate.Replace(" ",""), record.IRInitialResponse, record.FRFixResponse,
-                        record.Summary, record.TicketNo, record.Company, record.Assignedto, record.Caller, record.CaseType,
+                    dt.Rows.Add(record.CreateDate.Replace(" ",""), record.IRInitialResponse.Replace(" ", "").Replace("at","@"), record.FRFixResponse.Replace(" ", "").Replace("at", "@"), record.Summary,
+                        record.TicketNo, record.Company, record.Assignedto, record.Caller, record.CaseType,
                         record.CloseDate, record.DaysOpen, record.Department, record.InfrastructureType, record.Location,
                         record.Priority, record.IncidentType, record.Resolution, record.Status, record.Shift);
                 }
+
+                int row = 0;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    Console.WriteLine("=====================Row " + row + "========================");
+                    Console.WriteLine("Create Date: {0}, \nIRInitialResponse: {1}, \nFR Fix Response: {2}, "
+                        + " \nSummary: {3}, \nTicket #: {4}, \nCompany: {5}, \nAssigned to: {6}, \nCaller: {7}, "
+                        + " \nCase Type: {8}, \nClose Date: {9}, \nDays Open: {10}, \nDepartment: {11}, \nInfrastructure Type: {12},"
+                        + " \nLocation: {13}, \nPriority: {14}, \nIncident Type: {15}, \nResolution: {16}, \nStatus: {17} "
+                        + " \nShift: {18}", dr["Create Date"], dr["IR Initial Response"], dr["FR Fix Response"], dr["Summary"],
+                        dr["Ticket #"], dr["Company"], dr["Assigned to"], dr["Caller"], dr["Case Type"],
+                        dr["Close Date"], dr["Days Open"], dr["Department"], dr["Infrastructure Type"], dr["Location"],
+                        dr["Priority"], dr["IncidentType"], dr["Resolution"], dr["Status"], dr["Shift"]);
+                    //Console.WriteLine(dr[18]);
+                    row++;
+                }
+
+
+                WriteCsv wcsv = new WriteCsv(dt);
+                Console.WriteLine(row);
+                sr.Close();
+                
             }
 
-            sheet.Close(true, Type.Missing, Type.Missing);
-            excel.Quit();
+            
+
             Console.WriteLine("FINISHED");
-            Console.ReadKey();
         }
 
         public sealed class DataRecordMap : ClassMap<DataRecord>

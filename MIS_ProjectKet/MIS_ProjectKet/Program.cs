@@ -1,5 +1,5 @@
 ﻿using System;
-using Excel = Microsoft.Office.Interop.Excel;
+using System.Diagnostics;
 
 namespace MIS_ProjectKet
 {
@@ -7,8 +7,12 @@ namespace MIS_ProjectKet
     {
         static void Main(string[] args)
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             CsvParser run = new CsvParser();
-
+            sw.Stop();
+            Console.WriteLine("Elapsed={0}", sw.Elapsed);
+            Console.ReadKey();
         }
 
         
