@@ -11,7 +11,7 @@ namespace MIS_ProjectKet
         {
             //sets the existing excel file to be written
             Microsoft.Office.Interop.Excel.Application excel = new Microsoft.Office.Interop.Excel.Application();
-            Microsoft.Office.Interop.Excel.Workbook sheet = excel.Workbooks.Open(@"C:\Users\suare\Desktop\Project\FinalReportTest.xlsx");
+            Microsoft.Office.Interop.Excel.Workbook sheet = excel.Workbooks.Open(@"file path");
             Microsoft.Office.Interop.Excel.Worksheet x = excel.ActiveSheet as Microsoft.Office.Interop.Excel.Worksheet;
 
             //selects a specific worksheet to written on
