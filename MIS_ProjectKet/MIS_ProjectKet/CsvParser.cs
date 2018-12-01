@@ -1,4 +1,4 @@
-﻿using CsvHelper;
+using CsvHelper;
 using CsvHelper.Configuration;
 using System;
 using System.Collections.Generic;
@@ -13,10 +13,8 @@ namespace MIS_ProjectKet
     {
         public CsvParser()
         {
-            
-
             //use of library StreamReader to get csv file
-            using ( var sr = new StreamReader(@"file path"))
+            using ( var sr = new StreamReader(@"C:\Users\suare\Desktop\Project\report.csv"))
             using (DataTable dt = new DataTable("test"))
             {
                 //variable to be able to read csv file
@@ -52,14 +50,16 @@ namespace MIS_ProjectKet
 
                 foreach (DataRecord record in records)
                 {
-                    dt.Rows.Add(record.CreateDate.Replace(" ","").Replace("\"",""), record.IRInitialResponse.Replace(" ", "").Replace("\"", "").Replace("at","@"), record.FRFixResponse.Replace(" ", "").Replace("\"", "").Replace("at", "@"), record.Summary,
-                        record.TicketNo, record.Company, record.Assignedto, record.Caller, record.CaseType,
+                    dt.Rows.Add(record.CreateDate.Replace(" ","").Replace("\"","").Replace("-"," -").Replace("@"," @ ").Replace("AM"," AM").Replace("PM", " PM"),
+                        record.IRInitialResponse.Replace(" ", "").Replace("\"", "").Replace("-", " -").Replace("at"," @ ").Replace("AM", " AM").Replace("PM", " PM"), 
+                        record.FRFixResponse.Replace(" ", "").Replace("\"", "").Replace("-", " -").Replace("at", " @ ").Replace("AM", " AM").Replace("PM", " PM"), 
+                        record.Summary, record.TicketNo, record.Company, record.Assignedto, record.Caller, record.CaseType,
                         record.CloseDate, record.DaysOpen, record.Department, record.InfrastructureType, record.Location,
                         record.Priority, record.IncidentType, record.Resolution, record.Status, record.Shift);
                 }
-
-                WriteCsv wcsv = new WriteCsv(dt);
                 sr.Close();
+                WriteCsv wcsv = new WriteCsv(dt);
+                
                 
             }
             Console.WriteLine("FINISHED");
